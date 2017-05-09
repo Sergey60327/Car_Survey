@@ -1,0 +1,20 @@
+{
+  "name": "carsurvey",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sergey60327/Car_Survey.git"
+  },
+  "author": "Sergey, Steven, Antiny, Deepak",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Sergey60327/Car_Survey/issues"
+  },
+  "homepage": "https://github.com/Sergey60327/Car_Survey#readme"
+}
