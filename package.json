@@ -16,5 +16,12 @@
   "bugs": {
     "url": "https://github.com/Sergey60327/Car_Survey/issues"
   },
-  "homepage": "https://github.com/Sergey60327/Car_Survey#readme"
+  "homepage": "https://github.com/Sergey60327/Car_Survey#readme",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "express-handlebars": "^3.0.0",
+    "mysql": "^2.13.0",
+    "quick-survey-directive": "^1.1.0"
+  }
 }
