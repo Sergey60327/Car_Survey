@@ -22,6 +22,6 @@
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
     "mysql": "^2.13.0",
-    "quick-survey-directive": "^1.1.0"
+    "survey-jquery": "^0.12.13"
   }
 }
