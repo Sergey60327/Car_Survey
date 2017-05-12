@@ -5,7 +5,11 @@
 // Dependencies
 // =============================================================
 var express = require("express");
+var app = express();
+var exphbs = require('express-handlebars');
 var bodyParser = require("body-parser");
+var path = require("path");
+var methodOverride = require("method-override");
 
 
 // Sets up the Express App
@@ -22,6 +26,12 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 // Static directory
 app.use(express.static("app/public"));
 
+// Set Up Method Override
+app.use(methodOverride("_method"));
+
+//Set up Handlebars
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Routes
 // =============================================================
