@@ -5,6 +5,7 @@ var express = require("express");
 
     router.get("/", function (req, res) {
         console.log("Activated");
+        res.render("homePage");
     });
 
     router.get("/survey", function (req, res) {
