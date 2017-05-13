@@ -1,0 +1,88 @@
+  .image {
+    width: 45px;
+    margin-top: 30px;
+    left-margin: 50px;
+}
+
+
+#navbar {
+			background-color: #aad523;
+			border-bottom: none;
+			font-family: 'Russo One', sans-serif;
+			margin-right: 0px;
+		    padding-right: 50px;
+		    height: 100px;
+        Margin-top: 0px;
+
+}
+li {	font-family: 'Acme', sans-serif;
+			margin: 10px;
+			padding-top: 17px;
+			font-size: 18px;
+			cursor: pointer;
+
+
+}
+h1 {
+			font-family: 'Love Ya Like A Sister', cursive;
+      align: center;
+      margin-left: 200px;
+
+
+		}
+#name{
+		 font-family: 'Russo One', sans-serif;
+		    font-size: 40px;
+        padding-top: 100px;
+        margin-top: -77px;
+        position: absolute;
+        margin-left: 20px;
+		}
+
+.hero-container h1 {
+        color: #5b5a4b;
+        font-size: 3.875em;
+        padding: 0 5%
+      }
+
+.hero-container  {
+    margin-top: 250px;
+    margin-bottom: 15px;
+    position: relative;
+    left: 2px;
+}
+
+.hero-container .btn, .bottom_cta .btn {
+    min-width: 167px;
+}
+.mod {
+  margin-left: 400px;
+  position: absolute;
+  margin-top: 45px;
+  display: inline-block;
+  height: 80px;
+  }
+  #success{
+    margin-left: 190px;
+    position: absolute;
+    height: 55px;
+  }
+
+  #warning{
+    height: 55px;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 644px;
+    height: 20px;
+    margin: 0 auto;
+    background-image: url("../image/footer.jpg")
+}
+.image2{
+
+  margin-top: -170px;
+  width: 1540px;
+  height: 200px;
+}
