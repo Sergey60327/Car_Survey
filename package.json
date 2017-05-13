@@ -21,7 +21,13 @@
     "body-parser": "^1.17.1",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
+    "jquery": "^3.2.1",
+    "jsdom": "^10.1.0",
+    "method-override": "^2.3.8",
     "mysql": "^2.13.0",
-    "survey-jquery": "^0.12.13"
+    "passport": "^0.3.2",
+    "path": "^0.12.7",
+    "sequelize": "^3.30.4",
+    "survey-jquery": "^0.12.14"
   }
 }
