@@ -24,7 +24,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
 // Static directory
-app.use(express.static("app/public"));
+app.use(express.static("public"));
 
 // Set Up Method Override
 app.use(methodOverride("_method"));
@@ -35,9 +35,8 @@ app.set("view engine", "handlebars");
 
 // Routes
 // =============================================================
-require("./app/routes/api-routes.js")(app);
-require("./app/routes/html-routes.js")(app);
-
+var router = require("./controllers/cars_controllers.js");
+app.use('/', router);
 
 // Starts the server to begin listening
 // =============================================================
