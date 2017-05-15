@@ -6,14 +6,19 @@
 
 
 #navbar {
-			background-color: #aad523;
+			background-color: #aad523 !important;
 			border-bottom: none;
 			font-family: 'Russo One', sans-serif;
 			margin-right: 0px;
 		    padding-right: 50px;
 		    height: 100px;
         Margin-top: 0px;
+        position: fixed;
 
+}
+
+.navbar-default{
+  background-image: none;
 }
 li {	font-family: 'Acme', sans-serif;
 			margin: 10px;
@@ -52,7 +57,6 @@ h1 {
     left: 2px;
     align-self: center;
 }
-
 
 .hero-container .btn, .bottom_cta .btn {
     min-width: 167px;
@@ -93,4 +97,20 @@ h1 {
   background-size: 100%;
   background-repeat: no-repeat;
   margin-right: 0px;
+}
+
+#wrapper{
+  position: absolute;
+}
+
+#section{
+  position: relative;
+  margin-top: 100px;
+}
+
+h3{
+  font-family: 'Love Ya Like A Sister', cursive;
+  align: center;
+  font-size: 280%;
+  margin-top: 50px;
 }
