@@ -38,8 +38,12 @@ app.set("view engine", "handlebars");
 var router = require("./controllers/cars_controllers.js");
 app.use('/', router);
 
-// Starts the server to begin listening
-// =============================================================
-app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+//Database Sync
+var db = require("./models");
+db.sequelize.sync({ force: true }).then(function () {
+    // Starts the server to begin listening
+    // =============================================================
+    app.listen(PORT, function () {
+        console.log("App listening on PORT " + PORT);
+    });
 });
