@@ -14,7 +14,7 @@ var express = require("express");
     });
 
     router.post("/survey", function (req, res) {
-        
+        console.log(req.body);
     });
 
 module.exports = router;

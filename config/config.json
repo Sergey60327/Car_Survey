@@ -2,8 +2,7 @@
   "development": {
     "username": "root",
     "password": "bcb1234",
-    "Port":  4000,
-    "database": "database_development",
+    "database": "cars_db",
     "host": "127.0.0.1",
     "dialect": "mysql"
   },
