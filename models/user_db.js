@@ -11,11 +11,12 @@ module.exports = function (sequelize, DataTypes) {
             },
             userScore: {
                 type: DataTypes.INTEGER,
-                allowNull: false
+                allowNull: true
             },
             swappedStatus: {
                 type: DataTypes.INTEGER,
-                allowNull: false
+                allowNull: false,
+                defaultValue: 0
             }
         });
     return User;
