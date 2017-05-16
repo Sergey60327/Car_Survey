@@ -20,13 +20,12 @@
 .navbar-default{
   background-image: none;
 }
+
 li {	font-family: 'Acme', sans-serif;
 			margin: 10px;
 			padding-top: 17px;
 			font-size: 18px;
 			cursor: pointer;
-
-
 }
 h1 {
 			font-family: 'Love Ya Like A Sister', cursive;

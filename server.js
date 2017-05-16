@@ -10,6 +10,9 @@ var exphbs = require('express-handlebars');
 var bodyParser = require("body-parser");
 var path = require("path");
 var methodOverride = require("method-override");
+var passport = require("passport");
+var flash = require("connect-flash");
+require('./config/passport')(passport); //pass passport for configuration
 
 
 // Sets up the Express App

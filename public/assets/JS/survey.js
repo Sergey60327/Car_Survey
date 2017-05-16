@@ -5,11 +5,35 @@ $("#surveyContainer").Survey({
     model: survey,
     onComplete: sendDataToServer
 });
+$(".jumbotron").hide();
+$("#purchase-btns").hide();
 function sendDataToServer(survey) {
     var resultAsString = JSON.stringify(survey.data);
     alert(resultAsString); 
     //Build HTML or Model to go into here and view upon completition 
     $.post("/survey", resultAsString).done(function (response) {
-            //model or HTML to present image and car data
-    })
+        //model or HTML to present image and car data
+        console.log(response);
+        switch (response) {
+            case "1": displayImage("./assets/img/49_56_points.png"); break;
+            case "2": displayImage("./assets/img/49_56_points.png"); break;
+            case "3": displayImage("./assets/img/49_56_points.png"); break;
+            case "4": displayImage("./assets/img/49_56_points.png"); break;
+            case "5": displayImage("./assets/img/49_56_points.png"); break;
+            case "6": displayImage("./assets/img/49_56_points.png"); break;
+            case "7": displayImage("./assets/img/49_56_points.png"); break;
+            case "8": displayImage("./assets/img/49_56_points.png"); break;
+            default: "";
+        }
+    });
+}
+
+function displayImage(imageURL) {
+    var newImg = $("<img>");
+    newImg.attr("src", imageURL);
+    newImg.attr("class", "survey-image");
+    $(".jumbotron").append(newImg);
+    //Show Purchase Buttons & Jumbotron
+    $(".jumbotron").show();
+    $("#purchase-btns").show();
 }
