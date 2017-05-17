@@ -20,8 +20,10 @@ var router = express.Router();
 
     router.get("/carslist", function (req, res) {
         db.Car.findAll().then(function (response) {
-            console.log(response);
-            res.render("carsList", response);
+            var data = {
+                carsList: response,
+            }
+            res.render("carsList", data);
         })
         
     });
@@ -42,6 +44,16 @@ var router = express.Router();
             console.log("Car Inserted");
         })
     });
+
+//route to retrieve database info for client side
+router.get("/carsdb", function (req, res) {
+    db.Car.findAll().then(function (response) {
+        var data = {
+            carsList: response
+        }
+        res.json(data);
+    });
+});
 
     // =====================================
     // LOGIN ===============================
