@@ -28,6 +28,10 @@ function sendDataToServer(survey) {
     });
 }
 
+$.get("/survey").done(function (response) {
+    console.log(response);
+})
+
 function displayImage(imageURL) {
     var newImg = $("<img>");
     newImg.attr("src", imageURL);

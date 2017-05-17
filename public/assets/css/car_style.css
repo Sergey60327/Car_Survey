@@ -114,3 +114,35 @@ h3{
   font-size: 280%;
   margin-top: 50px;
 }
+
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    top: 100px;
+    left: 12%;
+    text-align: center;
+    width: 75%;
+    height: 60%;
+    overflow: auto;
+}
+
+.modal-content {
+    Color: black;
+    float: center;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close {
+    color: silver;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        cursor: pointer;
+    }

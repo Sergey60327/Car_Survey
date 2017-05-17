@@ -5,6 +5,7 @@
 // Dependencies
 // =============================================================
 var express = require("express");
+var session = require('express-session');
 var app = express();
 var exphbs = require('express-handlebars');
 var bodyParser = require("body-parser");
@@ -35,6 +36,16 @@ app.use(methodOverride("_method"));
 //Set up Handlebars
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+
+//Set up Passport and Flash Middleware
+app.use(session({
+    secret: 'carpathaisalwaysrunning',
+    resave: true,
+    saveUninitialized: true
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
 
 // Routes
 // =============================================================

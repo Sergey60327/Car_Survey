@@ -1,3 +1,0 @@
-functiom
-
-module.exports = Car;
