@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "bcb1234",
+    "password": "@Micky123456",
     "Port":  4000,
     "database": "database_development",
     "host": "127.0.0.1",
