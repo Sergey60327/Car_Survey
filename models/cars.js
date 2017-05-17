@@ -4,7 +4,7 @@
 module.exports = function(sequelize,DataTypes){
 
 // Creates a "Car" model that matches up with DB
-var Car = sequelize.define("car", {
+var Car = sequelize.define("Car", {
   model: {
     type: DataTypes.STRING
   },
@@ -25,8 +25,10 @@ var Car = sequelize.define("car", {
   },
   photo: {
   type: DataTypes.TEXT
-  }
-
+  },
+  username:{
+    type: DataTypes.STRING
+  }  
 }, {
   timestamps: false
 });
