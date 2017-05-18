@@ -18,6 +18,43 @@ var router = express.Router();
         res.send(randomNumber.toString());
     });
 
+    router.get("/carslist", function (req, res) {
+        db.Car.findAll().then(function (response) {
+            var data = {
+                carsList: response,
+            }
+            res.render("carsList", data);
+        })
+        
+    });
+
+    router.post("/carslist", function (req, res) {
+        console.log(req.body);
+        console.log(req.body.carInfo);
+        console.log(req.body.carInfo.color);
+        db.Car.create({
+            make: req.body.carInfo.make,
+            model: req.body.carInfo.model,
+            year: req.body.carInfo.year,
+            color: req.body.carInfo.color,
+            price: req.body.carInfo.price,
+            photo: req.body.carInfo.photoURL,
+            username: req.body.username
+        }).done(function (response) {
+            console.log("Car Inserted");
+        })
+    });
+
+//route to retrieve database info for client side
+router.get("/carsdb", function (req, res) {
+    db.Car.findAll().then(function (response) {
+        var data = {
+            carsList: response
+        }
+        res.json(data);
+    });
+});
+
     // =====================================
     // LOGIN ===============================
     // =====================================
@@ -30,7 +67,7 @@ var router = express.Router();
 
     // process the login form
     router.post('/login', passport.authenticate('local-login', {
-        successRedirect: '/carsList', // redirect to the secure profile section
+        successRedirect: '/carslist', // redirect to the secure profile section
         failureRedirect: '/login', // redirect back to the signup page if there is an error
         failureFlash: "wrong email or password"
     }),

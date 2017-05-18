@@ -30,7 +30,44 @@ function sendDataToServer(survey) {
 
 $.get("/survey").done(function (response) {
     console.log(response);
-})
+});
+
+//Event Listener and Logic for Swap
+$("#swap-btn").on("click", function (event) {
+    if (localStorage.userName == null) {
+        $(location).attr("href", "/login");
+    }
+    else {
+        $(location).attr("href", "/carslist");
+    }
+});
+
+//Modal for Congratulations upon Purchasing
+$("#purchase-btn").on("click", function (event) {
+    modal("Congratulations on Your New Car! Enjoy the ride!");
+});
+
+//Modal Listener
+$(document).on("click", ".close", function () {
+    $("#myModal").remove();
+});
+
+//Univeral function for Modal
+function modal(modalText) {
+    var myModal = $("<div>");
+    var modalContent = $("<div>");
+    var closeBTN = $("<span>");
+    var modalText;
+    myModal.attr("id", "myModal");
+    myModal.attr("class", "modal");
+    modalContent.attr("class", "modal-content");
+    closeBTN.attr("class", "close");
+    closeBTN.html("&times;");
+    modalContent.prepend(closeBTN);
+    modalContent.append(modalText);
+    myModal.append(modalContent);
+    $(".jumbotron").after(myModal);
+}
 
 function displayImage(imageURL) {
     var newImg = $("<img>");
