@@ -1,9 +1,9 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12" id="car-actions-box">
             <h3>Car Status:</h3>
-            <h4 id="carStatus">Your Car Has Not Sold</h4>
+            <h4 id="carStatus"></h4>
             <div class="btn-group" id="swap-btns" role="group" aria-label="Basic example">
                 <button type="button" id="yes-btn" class="btn btn-secondary btn-lg">Yes</button>
                 <button type="button" id="no-btn" class="btn btn-secondary btn-lg">No</button>
@@ -12,7 +12,7 @@
     </div>
     <div id="surveyContainer"></div>
     {{#each carsList}}
-        {{#unless swapped}}
+        {{#unless swappedOrPendingSwap}}
         <ul class="cars-list" id="{{username}}-listing">
             <li>Make: {{make}}</li>
             <li>Model: {{model}}</li>
@@ -21,7 +21,7 @@
             <li>Price: {{price}}</li>
             <li>Listed By: {{username}}</li>
             <li><img src="{{photo}}" width="50px" height="50px"/></li>
-            <button type="button" class="btn btn-secondary" id="requestSwap-btn" user="{{username}}">Request to Swap with Car Owner</button> 
+            <button type="button" class="btn btn-secondary" id="requestSwap-btn" user="{{username}}" vehicleId="{{id}}">Request to Swap with Car Owner</button> 
         </ul>
         {{/unless}}
     {{/each}}

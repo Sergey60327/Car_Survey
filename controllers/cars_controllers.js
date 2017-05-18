@@ -17,7 +17,18 @@ var router = express.Router();
         var randomNumber = Math.floor((Math.random() * 8) + 1);
         res.send(randomNumber.toString());
     });
-
+    //route to get specific userData
+    router.get("/cardata/:user", function (req, res) {
+        db.Car.find({
+            where: {
+                username: req.params.user
+            }
+        }).done(function (response) {
+            console.log("finding one car");
+            res.json(response);
+        });
+    });
+//route to get all Car Data
     router.get("/carslist", function (req, res) {
         db.Car.findAll().then(function (response) {
             var data = {
@@ -69,21 +80,71 @@ router.put("/updatecarstoswapped", function (req, res) {
             console.log("Car Updated to Final Swap Status");
         });
 });
+//Route to reset cars back to normal upon no of the requestee
+router.put("/updatecarstonotswapped", function (req, res) {
+    db.Car.update({
+        swapStatus: 0,
+        swappedOrPendingSwap: false,
+        initiatedSwap: null,
+        swapCarID: null,
+        userSwap: null
+    }, {
+            where: {
+                username: req.body.currentUser
+            }
+        }).done(function (response) {
+            //requestee update
+            db.Car.update({
+                swapStatus: 0,
+                swappedOrPendingSwap: false,
+                initiatedSwap: null,
+                swapCarID: null,
+                userSwap: null
+            }, {
+                    where: {
+                        username: req.body.userSwap
+                    }
+                }).done(function (response) {
+                    //requestee update
+                    console.log("Cars Updated");
+                });
+            console.log("Cars Updated");
+        });
+});
 
 //route to update swap status and swapUser
 router.put("/updateSwapStatus/:currentuser", function (req, res) {
     var currentUser = req.params.currentuser;
     var userForSwap = req.body.userSwap;
+    var vehicleSwapId = req.body.vehicleSwapId;
     console.log(currentUser + "-" + userForSwap);
+    //requestor update
     db.Car.update({
         swapStatus: 1,
+        swappedOrPendingSwap: true,
+        initiatedSwap: true,
+        swapCarID: vehicleSwapId,
         userSwap: userForSwap
     }, {
             where: {
                 username: currentUser
             }
         }).done(function (response) {
-            console.log("Car Updated");
+            //requestee update
+            db.Car.update({
+                swapStatus: 1,
+                swappedOrPendingSwap: true,
+                initiatedSwap: false,
+                userSwap: currentUser
+            }, {
+                    where: {
+                        username: userForSwap
+                    }
+                }).done(function (response) {
+                    //requestee update
+                    console.log("Cars Updated");
+                });
+            console.log("Cars Updated");
         });
 });
 

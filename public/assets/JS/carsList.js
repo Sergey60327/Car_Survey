@@ -1,63 +1,53 @@
-﻿//Remove LI for current user
+﻿//Remove LI for current user & Do not automatically show car status and actions box
 $("#" + localStorage.userName + "-listing").remove();
-
+$("#car-actions-box").hide()
 //Criteria to Show Survey or List, and show status of Car upon signing in.
 $.get("/carsdb", function (response) {
-    $.each(response.carsList, function (i, val) {
-        if (localStorage.userName === val.username) {
-            $("#surveyContainer").hide();
-            if (val.swapStatus === 0) {
-                $("#carStatus").html("Your Car is still up for swapping");
-                $("#swap-btns").hide();
-            }
-            else if (val.swapStatus === 1) {
-                $("#carStatus").html(val.userSwap + " wants to swap cars with you");
-                $("#swap-btns").show();
-                //Swap btns criteria
-                //yes btn event listener. Set both cars status from classifieds to 2 and change car status to swapped
-                $("#yes-btn").on("click", function (event) {
-                    var usersForSwap = {
-                        currentUser: localStorage.userName,
-                        userSwap: val.userSwap
-                    }
-                    $.ajax({
-                        url: "/updatecarstoswapped",
-                        type: "put",
-                        data: usersForSwap
-                    }).done(function () {
-                        //do something with browser
-                        console.log("delete request sent");
-                    });
-                });
-
-                //no button to update back to 0
-                $("#no-btn").on("click", function (event) {
-
-                });
-            }
-            else if (val.swapStatus === 2) {
-                $("#carStatus").html("You have swapped cars");
-                $("#swap-btns").hide();
-            }
-        }
+    //Add Handling of DB being null
+    if (response.carsList.length == 0) {
+        console.log("You are the only car");
+        initialActionCriteria(response);
+        $("#swap-btns").hide();
+        $("#car-actions-box").show();
+        $("#requestSwap-btn").hide();
+        $("#carStatus").html("There are no cars as you are the first user to post a car. Please fill out survey and come back to check to see if more cars are available");
+    }
+    else if (response.carsList.length == 1) {
+        console.log("You are the only car");
+        initialActionCriteria(response);
+        $("#swap-btns").hide();
+        $("#car-actions-box").show();
+        $("#requestSwap-btn").hide();
+        $("#carStatus").html("There is only one car in the list and no user(s) to swap with. Please come back to check to see if more cars are available");
+        
+    }
+    else if (response.carsList != "") {
+        console.log("hello");
+        $("#swap-btns").hide();
+        initialActionCriteria(response);
+        $("#car-actions-box").show();
+        
+    }
+});
+    
+    //event listener for onclick of request
+$(".cars-list").on("click", "#requestSwap-btn", function (event) {
+    console.log(event.target.attributes[4].value);
+    var userForSwapData = {
+        userSwap: event.target.attributes[3].value,
+        vehicleSwapId: event.target.attributes[4].value
+    }
+    $.ajax({
+        url: "/updateSwapStatus/" + localStorage.userName,
+        type: "put",
+        data: userForSwapData
+    }).done(function () {
+        //do something with browser
+        console.log("update request sent");
     });
+});
 
-    //event listener for onclick of 
-    $("#requestSwap-btn").on("click", function (event) {
-        console.log(event.target.attributes[3].value);
-        var userForSwap = {
-            userSwap: event.target.attributes[3].value
-        }
-        $.ajax({
-            url: "/updateSwapStatus/" + localStorage.userName,
-            type: "put",
-            data: userForSwap
-        }).done(function () {
-            //do something with browser
-            console.log("update request sent");
-        });
-    })
-}).then(function () {
+function showSurvey() {
     Survey.Survey.cssType = "bootstrap";
 
     var surveyJSON = { pages: [{ name: "page1", elements: [{ type: "text", isRequired: true, name: "make", title: "Car Make" }, { type: "text", isRequired: true, name: "model", title: "Car Model" }, { type: "text", inputType: "number", isRequired: true, name: "year", title: "Car Year" }, { type: "text", isRequired: true, name: "color", title: "Exterior Color" }, { type: "text", inputType: "number", isRequired: true, name: "price", title: "Current Selling Price" }, { type: "text", inputType: "url", isRequired: true, name: "photoURL", title: "Image URL of Car" }] }] }
@@ -78,7 +68,68 @@ $.get("/carsdb", function (response) {
         $.post("/carslist", carsData).done(function (response) {
             //model or HTML to present image and car data
             $("#surveyContainer").hide();
+            $("requestSwap-btn").show();
         });
     }
-});
+}
 
+function initialActionCriteria(response) {
+    showSurvey();
+        $.each(response.carsList, function (i, val) {
+            if (localStorage.userName === val.username) {
+                $("#surveyContainer").hide();
+                if (val.swapStatus === 0) {
+                    $("#carStatus").html("Your Car is still up for swapping");
+                    $("#swap-btns").hide();
+                }
+                else if (val.swapStatus === 1) {
+                    $.get("/cardata/" + localStorage.userName).done(function (response) {
+                        if (response.initiatedSwap === false) {
+                            $("#carStatus").html(response.userSwap + " wants to swap cars with you");
+                            $("#swap-btns").show();
+                        }
+                        else if (response.initiatedSwap === true) {
+                            $("#carStatus").html("You have initiated a swap with " + response.userSwap + ".This status will change upon them choosing to swap or not");
+                        }
+                        //Swap btns criteria
+                        //yes btn event listener. Set both cars status from classifieds to 2 and change car status to swapped
+                        $("#car-actions-box").on("click", "#yes-btn", function (event) {
+                            console.log("yes");
+                            var usersInSwap = {
+                                currentUser: localStorage.userName,
+                                userSwap: val.userSwap
+                            }
+                            $.ajax({
+                                url: "/updatecarstoswapped",
+                                type: "put",
+                                data: usersInSwap
+                            }).done(function () {
+                                //do something with browser
+                                console.log("updates request sent");
+                            });
+                        });
+
+                        //no button to update back to 0
+                        $("#no-btn").on("click", function (event) {
+                            var usersInSwap = {
+                                currentUser: localStorage.userName,
+                                userSwap: val.userSwap
+                            }
+                            $.ajax({
+                                url: "/updatecarstonotswapped",
+                                type: "put",
+                                data: usersInSwap
+                            }).done(function () {
+                                //do something with browser
+                                console.log("updates request sent");
+                            });
+                        });
+                    });
+                }
+                else if (val.swapStatus === 2) {
+                    $("#carStatus").html("You have swapped cars");
+                    $("#swap-btns").hide();
+                }
+            }
+        });
+}
