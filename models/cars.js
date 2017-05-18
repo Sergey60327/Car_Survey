@@ -20,15 +20,24 @@ var Car = sequelize.define("Car", {
   price: {
     type: DataTypes.STRING
   },
-  swap: {
-  type: DataTypes.BOOLEAN
-  },
   photo: {
   type: DataTypes.TEXT
   },
   username:{
     type: DataTypes.STRING
-  }  
+  },
+  swapStatus: {
+    type: DataTypes.INTEGER,
+    defaultValue:0
+  },
+   swapped:{
+    type:DataTypes.BOOLEAN,
+    defaultValue: false
+  },
+   userSwap:{
+    type: DataTypes.STRING,
+    allowNull: true  
+  }
 }, {
   timestamps: false
 });

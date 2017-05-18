@@ -55,6 +55,38 @@ router.get("/carsdb", function (req, res) {
     });
 });
 
+//route to update cars to null after swap
+router.put("/updatecarstoswapped", function (req, res) {
+    console.log(req.body);
+    db.Car.update({
+        swapStatus: 2,
+        swapped: true
+    }, {
+            where: {
+                username: [req.body.currentUser, req.body.userSwap]
+            }
+        }).done(function (response) {
+            console.log("Car Updated to Final Swap Status");
+        });
+});
+
+//route to update swap status and swapUser
+router.put("/updateSwapStatus/:currentuser", function (req, res) {
+    var currentUser = req.params.currentuser;
+    var userForSwap = req.body.userSwap;
+    console.log(currentUser + "-" + userForSwap);
+    db.Car.update({
+        swapStatus: 1,
+        userSwap: userForSwap
+    }, {
+            where: {
+                username: currentUser
+            }
+        }).done(function (response) {
+            console.log("Car Updated");
+        });
+});
+
     // =====================================
     // LOGIN ===============================
     // =====================================
