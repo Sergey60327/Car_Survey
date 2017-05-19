@@ -1,0 +1,18 @@
+body{
+  background-color:#ffdc6f;
+}
+.panel-footer {
+background-color:#ffdc6f;
+}
+h3{
+  font-size: 190%;
+}
+
+.jumborton{
+  text-align: center;
+  width: 350px;
+}
+
+.survey-image{
+padding-left: 120px;
+}
