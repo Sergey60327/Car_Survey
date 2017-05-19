@@ -151,6 +151,18 @@ router.put("/updateSwapStatus/:currentuser", function (req, res) {
         });
 });
 
+//route to delete existing car so only one car per user at time of completition of survey
+router.delete("/deletecar/:user", function (req, res) {
+    console.log("delete");
+    db.Car.destroy({
+        where: {
+            username: req.params.user
+        }
+    }).done(function () {
+        console.log("car deleted");
+    })
+});
+
     // =====================================
     // LOGIN ===============================
     // =====================================

@@ -21,10 +21,10 @@ var Car = sequelize.define("Car", {
     type: DataTypes.STRING
   },
   photo: {
-  type: DataTypes.TEXT
+    type: DataTypes.TEXT
   },
   username:{
-    type: DataTypes.STRING
+      type: DataTypes.STRING
   },
   swapStatus: {
     type: DataTypes.INTEGER,
