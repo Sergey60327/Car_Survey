@@ -18,7 +18,7 @@ var router = express.Router();
         res.send(randomNumber.toString());
     });
     //route to get specific userData
-    router.get("/cardata/:user", function (req, res) {
+    router.get("/cardatabyuser/:user", function (req, res) {
         db.Car.find({
             where: {
                 username: req.params.user
@@ -38,6 +38,19 @@ var router = express.Router();
         })
         
     });
+
+//route to get just one car data
+router.get("/cardatabyid/:carid", function (req, res) {
+    console.log("________");
+    console.log(req.params.carid);
+    db.Car.find({
+        where: {
+            id: req.params.carid
+        }
+    }).done(function (response) {
+        res.json(response);
+    });
+});
 
     router.post("/carslist", function (req, res) {
         console.log(req.body);
@@ -114,11 +127,12 @@ router.put("/updatecarstonotswapped", function (req, res) {
         });
 });
 
-//route to update swap status and swapUser
+//route to update swapStats for both users involved
 router.put("/updateSwapStatus/:currentuser", function (req, res) {
     var currentUser = req.params.currentuser;
     var userForSwap = req.body.userSwap;
     var vehicleSwapId = req.body.vehicleSwapId;
+    var currentCarId = req.body.currentCarId;
     console.log(currentUser + "-" + userForSwap);
     //requestor update
     db.Car.update({
@@ -137,6 +151,7 @@ router.put("/updateSwapStatus/:currentuser", function (req, res) {
                 swapStatus: 1,
                 swappedOrPendingSwap: true,
                 initiatedSwap: false,
+                swapCarID: currentCarId,
                 userSwap: currentUser
             }, {
                     where: {

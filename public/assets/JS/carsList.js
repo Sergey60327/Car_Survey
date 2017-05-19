@@ -30,27 +30,29 @@ $.get("/carsdb", function (response) {
     }
 });
     
-    //event listener for onclick of request
+    //event listener for onclick of request & GET for USER existing car ID in current scope
 $(".cars-list").on("click", ".requestSwap-btn", function (event) {
     console.log(event);
     //logic to receive swap user and swap car id from html element data
-    var swapCarData = event.target.id;
-    var swapDataArray = swapCarData.split("-");
-    var userForSwapData = {
-        userSwap: swapDataArray[0],
-        vehicleSwapId: swapDataArray[1]
-    }
-    $.ajax({
-        url: "/updateSwapStatus/" + localStorage.userName,
-        type: "put",
-        data: userForSwapData
-    }).done(function (response) {
-        //do something with browser
-        console.log("update request sent");
-        $(location).attr("href", response);
+    $.get("/cardatabyuser/" + localStorage.userName).done(function (response) {
+        var swapCarData = event.target.id;
+        var swapDataArray = swapCarData.split("-");
+        var userForSwapData = {
+            currentCarId: response.id, 
+            userSwap: swapDataArray[0],
+            vehicleSwapId: swapDataArray[1]
+        }
+        $.ajax({
+            url: "/updateSwapStatus/" + localStorage.userName,
+            type: "put",
+            data: userForSwapData
+        }).done(function (response) {
+            //do something with browser
+            console.log("update request sent");
+            $(location).attr("href", response);
+        });
     });
 });
-
 //Post Function to Insert Car
 function postCar(carsData) {
     $.post("/carslist", carsData).done(function (response) {
@@ -80,7 +82,7 @@ function showSurvey() {
         }
         //Build HTML or Model to go into here and view upon completition
         //Remove existing car if array length is greater than or equal to 1 to only have one car per user in DB
-        $.get("/cardata/" + localStorage.userName).done(function (response) {
+        $.get("/cardatabyuser/" + localStorage.userName).done(function (response) {
             console.log("____________________________");
             console.log(response);
             if (response != null) {
@@ -118,10 +120,21 @@ function showSurvey() {
                         $("#swap-btns").hide();
                     }
                     else if (val.swapStatus === 1) {
-                        $.get("/cardata/" + localStorage.userName).done(function (response) {
+                        $.get("/cardatabyuser/" + localStorage.userName).done(function (response) {
                             if (response.initiatedSwap === false) {
-                                $("#carStatus").html(response.userSwap + " wants to swap cars with you");
-                                $("#swap-btns").show();
+                                //Call to get individual car data of swap car and display on page
+                                $.get("/cardatabyid/" + response.swapCarID).done(function (response) {
+                                    console.log(response);
+                                    $("#carStatus").html(response.userSwap + " wants to swap cars with you. They would like to swap for a " + response.year + " " + response.color + " " + response.make + " " + response.model + " that is currently worth $" + response.price + ". Do you want to swap for your car?");
+                                    //Show Image of the Car and append to car status
+                                    var newImg = $("<img>");
+                                    newImg.attr("src", response.photo);
+                                    newImg.attr("alt", response.make + "-" + response.model);
+                                    newImg.css("height", "15%");
+                                    newImg.css("width", "15%");
+                                    $("#carStatus").append(newImg);
+                                    $("#swap-btns").show();
+                                });
                             }
                             else if (response.initiatedSwap === true) {
                                 $("#carStatus").html("You have initiated a swap with " + response.userSwap + ".This status will change upon them choosing to swap or not");
