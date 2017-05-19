@@ -53,6 +53,7 @@ var router = express.Router();
             username: req.body.username
         }).done(function (response) {
             console.log("Car Inserted");
+            res.send("/carslist");
         })
     });
 
@@ -78,6 +79,7 @@ router.put("/updatecarstoswapped", function (req, res) {
             }
         }).done(function (response) {
             console.log("Car Updated to Final Swap Status");
+            res.send("/carslist");
         });
 });
 //Route to reset cars back to normal upon no of the requestee
@@ -107,8 +109,8 @@ router.put("/updatecarstonotswapped", function (req, res) {
                 }).done(function (response) {
                     //requestee update
                     console.log("Cars Updated");
+                    res.send("/carslist");
                 });
-            console.log("Cars Updated");
         });
 });
 
@@ -143,6 +145,7 @@ router.put("/updateSwapStatus/:currentuser", function (req, res) {
                 }).done(function (response) {
                     //requestee update
                     console.log("Cars Updated");
+                    res.send("/carslist");
                 });
             console.log("Cars Updated");
         });

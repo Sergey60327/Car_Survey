@@ -41,9 +41,10 @@ $(".cars-list").on("click", "#requestSwap-btn", function (event) {
         url: "/updateSwapStatus/" + localStorage.userName,
         type: "put",
         data: userForSwapData
-    }).done(function () {
+    }).done(function (response) {
         //do something with browser
         console.log("update request sent");
+        $(location).attr("href", response);
     });
 });
 
@@ -69,6 +70,7 @@ function showSurvey() {
             //model or HTML to present image and car data
             $("#surveyContainer").hide();
             $("requestSwap-btn").show();
+            $(location).attr("href", response);
         });
     }
 }
@@ -76,10 +78,10 @@ function showSurvey() {
 function initialActionCriteria(response) {
     showSurvey();
         $.each(response.carsList, function (i, val) {
-            if (localStorage.userName === val.username) {
+            if (localStorage.userName === val.username && val.swapStatus !== 2){
                 $("#surveyContainer").hide();
                 if (val.swapStatus === 0) {
-                    $("#carStatus").html("Your Car is still up for swapping");
+                    $("#carStatus").html("Your Car is up for swap");
                     $("#swap-btns").hide();
                 }
                 else if (val.swapStatus === 1) {
@@ -103,9 +105,10 @@ function initialActionCriteria(response) {
                                 url: "/updatecarstoswapped",
                                 type: "put",
                                 data: usersInSwap
-                            }).done(function () {
+                            }).done(function (response) {
                                 //do something with browser
                                 console.log("updates request sent");
+                                $(location).attr("href", response);
                             });
                         });
 
@@ -119,17 +122,20 @@ function initialActionCriteria(response) {
                                 url: "/updatecarstonotswapped",
                                 type: "put",
                                 data: usersInSwap
-                            }).done(function () {
+                            }).done(function (response) {
                                 //do something with browser
                                 console.log("updates request sent");
+                                $(location).attr("href", response);
                             });
                         });
                     });
                 }
-                else if (val.swapStatus === 2) {
-                    $("#carStatus").html("You have swapped cars");
-                    $("#swap-btns").hide();
-                }
+                
             }
+            else if (localStorage.userName === val.username && val.swapStatus === 2) {
+                $("#carStatus").html("You have swapped cars");
+                $("#swap-btns").hide();
+            }
+            
         });
 }
