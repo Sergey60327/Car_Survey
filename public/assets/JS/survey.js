@@ -9,7 +9,6 @@ $(".jumbotron").hide();
 $("#purchase-btns").hide();
 function sendDataToServer(survey) {
     var resultAsString = JSON.stringify(survey.data);
-    alert(resultAsString);
     //Build HTML or Model to go into here and view upon completition
     $.post("/survey", resultAsString).done(function (response) {
         //model or HTML to present image and car data
