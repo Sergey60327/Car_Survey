@@ -1,5 +1,5 @@
 ﻿//Remove LI for current user & Do not automatically show car status and actions box
-$("#" + localStorage.userName + "-listing").remove();
+$("#" + sessionStorage.userName + "-listing").remove();
 $("#car-actions-box").hide()
 //Criteria to Show Survey or List, and show status of Car upon signing in.
 $.get("/carsdb", function (response) {
@@ -34,7 +34,7 @@ $.get("/carsdb", function (response) {
 $(".cars-list").on("click", ".requestSwap-btn", function (event) {
     console.log(event);
     //logic to receive swap user and swap car id from html element data
-    $.get("/cardatabyuser/" + localStorage.userName).done(function (response) {
+    $.get("/cardatabyuser/" + sessionStorage.userName).done(function (response) {
         var swapCarData = event.target.id;
         var swapDataArray = swapCarData.split("-");
         var userForSwapData = {
@@ -43,7 +43,7 @@ $(".cars-list").on("click", ".requestSwap-btn", function (event) {
             vehicleSwapId: swapDataArray[1]
         }
         $.ajax({
-            url: "/updateSwapStatus/" + localStorage.userName,
+            url: "/updateSwapStatus/" + sessionStorage.userName,
             type: "put",
             data: userForSwapData
         }).done(function (response) {
@@ -77,18 +77,18 @@ function showSurvey() {
     function sendDataToServer(survey) {
         var resultAsString = JSON.stringify(survey.data);
         var carsData = {
-            username: localStorage.userName,
+            username: sessionStorage.userName,
             carInfo: survey.data
         }
         //Build HTML or Model to go into here and view upon completition
         //Remove existing car if array length is greater than or equal to 1 to only have one car per user in DB
-        $.get("/cardatabyuser/" + localStorage.userName).done(function (response) {
+        $.get("/cardatabyuser/" + sessionStorage.userName).done(function (response) {
             console.log("____________________________");
             console.log(response);
             if (response != null) {
                 console.log("if post");
                 $.ajax({
-                    url: "/deletecar/" + localStorage.userName,
+                    url: "/deletecar/" + sessionStorage.userName,
                     type: "delete",
                     success: postCar(carsData)
                 ////}).done(function (response) {
@@ -113,14 +113,14 @@ function showSurvey() {
         function initialActionCriteria(response) {
             showSurvey();
             $.each(response.carsList, function (i, val) {
-                if (localStorage.userName === val.username && val.swapStatus !== 2) {
+                if (sessionStorage.userName === val.username && val.swapStatus !== 2) {
                     $("#surveyContainer").hide();
                     if (val.swapStatus === 0) {
                         $("#carStatus").html("Your Car is up for swap");
                         $("#swap-btns").hide();
                     }
                     else if (val.swapStatus === 1) {
-                        $.get("/cardatabyuser/" + localStorage.userName).done(function (response) {
+                        $.get("/cardatabyuser/" + sessionStorage.userName).done(function (response) {
                             if (response.initiatedSwap === false) {
                                 //Call to get individual car data of swap car and display on page
                                 $.get("/cardatabyid/" + response.swapCarID).done(function (response) {
@@ -144,7 +144,7 @@ function showSurvey() {
                             $("#car-actions-box").on("click", "#yes-btn", function (event) {
                                 console.log("yes");
                                 var usersInSwap = {
-                                    currentUser: localStorage.userName,
+                                    currentUser: sessionStorage.userName,
                                     userSwap: val.userSwap
                                 }
                                 $.ajax({
@@ -161,7 +161,7 @@ function showSurvey() {
                             //no button to update back to 0
                             $("#no-btn").on("click", function (event) {
                                 var usersInSwap = {
-                                    currentUser: localStorage.userName,
+                                    currentUser: sessionStorage.userName,
                                     userSwap: val.userSwap
                                 }
                                 $.ajax({
@@ -178,7 +178,7 @@ function showSurvey() {
                     }
 
                 }
-                else if (localStorage.userName === val.username && val.swapStatus === 2) {
+                else if (sessionStorage.userName === val.username && val.swapStatus === 2) {
                     $("#carStatus").html("You have swapped cars");
                     $("#swap-btns").hide();
                 }
