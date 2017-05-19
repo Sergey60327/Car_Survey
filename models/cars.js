@@ -30,14 +30,22 @@ var Car = sequelize.define("Car", {
     type: DataTypes.INTEGER,
     defaultValue:0
   },
-   swapped:{
+   swappedOrPendingSwap:{
     type:DataTypes.BOOLEAN,
     defaultValue: false
   },
    userSwap:{
     type: DataTypes.STRING,
     allowNull: true  
-  }
+   },
+   initiatedSwap: {
+       type: DataTypes.BOOLEAN,
+       defaultValue: false
+   },
+   swapCarID: {
+       type: DataTypes.INTEGER,
+       defaultValue: false
+   },
 }, {
   timestamps: false
 });
