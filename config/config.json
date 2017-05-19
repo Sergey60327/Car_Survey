@@ -1,9 +1,14 @@
 {
   "development": {
     "username": "root",
+<<<<<<< HEAD
     "password": "@Micky123456",
     "Port":  4000,
     "database": "database_development",
+=======
+    "password": "bcb1234",
+    "database": "cars_db",
+>>>>>>> bb5692fb39c5a62908447bb136351c473a468dfb
     "host": "127.0.0.1",
     "dialect": "mysql"
   },

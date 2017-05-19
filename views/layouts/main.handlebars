@@ -1,4 +1,5 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
+<html>
     <head>
         <title>Car Survey</title>
         <meta charset="utf-8">
@@ -10,7 +11,22 @@
         <link rel="stylesheet" type="text/css" href="./assets/css/car_style.css">
         <link href="https://fonts.googleapis.com/css?family=Love+Ya+Like+A+Sister" rel="stylesheet">
     </head>
-    
+    <body>
+
+      <div id="mycontroller" ng-app="myApp" ng-controller="myCtrl">
+        <nav class="navbar navbar-default navbar-fixed-top" id="navbar">
+          <a class="navbar-brand" href=""></a>
+          <img alt="Brand" class = "image" src="assets/img/brand.png">
+            <span id="name">CarSurvey</span>
+          <ul class="links nav navbar-nav navbar-right" id="links">
+              <li id="home"><a href="/" id="home-link">Home</a></li>
+              <li><a href="" id="about-link">Sign In</a></li>
+          </ul>
+        </nav>
+      </div>
+      <div class="container">
         {{{body}}}
-    
+      </div>
+
+  </body>
 </html>
