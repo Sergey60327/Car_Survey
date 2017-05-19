@@ -31,11 +31,14 @@ $.get("/carsdb", function (response) {
 });
     
     //event listener for onclick of request
-$(".cars-list").on("click", "#requestSwap-btn", function (event) {
-    console.log(event.target.attributes[4].value);
+$(".cars-list").on("click", ".requestSwap-btn", function (event) {
+    console.log(event);
+    //logic to receive swap user and swap car id from html element data
+    var swapCarData = event.target.id;
+    var swapDataArray = swapCarData.split("-");
     var userForSwapData = {
-        userSwap: event.target.attributes[3].value,
-        vehicleSwapId: event.target.attributes[4].value
+        userSwap: swapDataArray[0],
+        vehicleSwapId: swapDataArray[1]
     }
     $.ajax({
         url: "/updateSwapStatus/" + localStorage.userName,
@@ -47,6 +50,17 @@ $(".cars-list").on("click", "#requestSwap-btn", function (event) {
         $(location).attr("href", response);
     });
 });
+
+//Post Function to Insert Car
+function postCar(carsData) {
+    $.post("/carslist", carsData).done(function (response) {
+        //model or HTML to present image and car data
+        $("#surveyContainer").hide();
+        $(".requestSwap-btn").show();
+        $(location).attr("href", response);
+        console.log("post car succeeded");
+    });
+}
 
 function showSurvey() {
     Survey.Survey.cssType = "bootstrap";
@@ -69,28 +83,26 @@ function showSurvey() {
         $.get("/cardata/" + localStorage.userName).done(function (response) {
             console.log("____________________________");
             console.log(response);
-            if (response != "") {
+            if (response != null) {
+                console.log("if post");
                 $.ajax({
                     url: "/deletecar/" + localStorage.userName,
-                    type: "delete"
-                }).done(function (response) {
-                    //do something with browser
-                    console.log("car deleted");
-                    $.post("/carslist", carsData).done(function (response) {
-                        //model or HTML to present image and car data
-                        $("#surveyContainer").hide();
-                        $("requestSwap-btn").show();
-                        //$(location).attr("href", response);
-                    });
+                    type: "delete",
+                    success: postCar(carsData)
+                ////}).done(function (response) {
+                ////    //do something with browser
+                ////    console.log("car deleted");
+                ////    $.post("/carslist", carsData).done(function (response) {
+                ////        //model or HTML to present image and car data
+                ////        $("#surveyContainer").hide();
+                ////        $("requestSwap-btn").show();
+                ////        //$(location).attr("href", response);
+                //    });
                 });
             }
             else {
-                $.post("/carslist", carsData).done(function (response) {
-                    //model or HTML to present image and car data
-                    $("#surveyContainer").hide();
-                    $("requestSwap-btn").show();
-                    //$(location).attr("href", response);
-                });
+                console.log("else post");
+                postCar(carsData);
             }
         });
     }

@@ -21,7 +21,7 @@
             <li>Price: {{price}}</li>
             <li>Listed By: {{username}}</li>
             <li><img src="{{photo}}" alt="{{make}}-{{model}}"/></li>
-            <button type="button" class="btn btn-secondary" id="requestSwap-btn" user="{{username}}" vehicleId="{{id}}">Request to Swap with Car Owner</button> 
+            <button type="button" class="btn btn-secondary requestSwap-btn" id="{{username}}-{{id}}" user="{{username}}" vehicleId="{{id}}">Request to Swap with Car Owner</button> 
         </ul>
         {{/unless}}
     {{/each}}

@@ -156,11 +156,15 @@ router.delete("/deletecar/:user", function (req, res) {
     console.log("delete");
     db.Car.destroy({
         where: {
-            username: req.params.user
+            username: req.params.user,
+            //Added in AND critera so it only deletes the existing car that has already been swapped
+            $and: {
+                swapStatus: 2
+            }
         }
     }).done(function () {
         console.log("car deleted");
-    })
+    });
 });
 
     // =====================================
