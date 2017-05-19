@@ -5,6 +5,7 @@ html, body
 
 .container{
   margin-top: 50px;
+
 }
 .image {
     width: 45px;
@@ -176,14 +177,16 @@ h3{
 #surveyContainer{
   margin-top: 0px;
   margin: auto;
-    width: 70%;
+ width: 100%;
  font-family: 'Love Ya Like A Sister', cursive;
- font-size: 200%;
+ font-size: 165%;
+ margin-left: 330px;
+
   }
 #container{
   align-items: center;
   margin-top: 120px;
-};
+  };
 
 h4 {
   font-family: 'Love Ya Like A Sister', cursive;
