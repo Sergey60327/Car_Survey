@@ -35,7 +35,7 @@ $.get("/survey").done(function (response) {
 
 //Event Listener and Logic for Swap
 $("#swap-btn").on("click", function (event) {
-    if (localStorage.userName == null) {
+    if (sessionStorage.userName == null) {
         $(location).attr("href", "/login");
     }
     else {

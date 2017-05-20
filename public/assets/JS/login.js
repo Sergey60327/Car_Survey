@@ -1,3 +1,3 @@
 ﻿$("#submit-btn").on("click", function (event) {
-    localStorage.setItem("userName", $("#username").val().trim());
+    sessionStorage.setItem("userName", $("#username").val().trim());
 })
