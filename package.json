@@ -4,14 +4,14 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha || true",
     "start": "node server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Sergey60327/Car_Survey.git"
   },
-  "author": "Sergey, Steven, Antiny, Deepak",
+  "author": "Sergey, Steven, Anthony, Deepak",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/Sergey60327/Car_Survey/issues"
@@ -20,12 +20,15 @@
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.17.1",
+    "chai": "^3.5.0",
     "connect-flash": "^0.1.1",
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.2",
     "method-override": "^2.3.8",
+    "mocha": "^3.4.1",
     "mysql": "^2.13.0",
+    "nightmare": "^2.10.0",
     "passport": "^0.3.2",
     "passport-local": "^1.0.0",
     "path": "^0.12.7",
