@@ -1,5 +1,10 @@
 ﻿//Remove LI for current user & Do not automatically show car status and actions box
 $("#" + localStorage.userName + "-listing").remove();
+$(".carlistimage").css("height","50%");
+$(".carlistimage").css("width","50%");
+$(".requestSwap-btn").css("margin-left", "60px");
+$(".requestSwap-btn").css("margin-top", "20px");
+$(".requestSwap-btn").css("height", "50px");
 $("#car-actions-box").hide()
 //Criteria to Show Survey or List, and show status of Car upon signing in.
 $.get("/carsdb", function (response) {
@@ -19,17 +24,17 @@ $.get("/carsdb", function (response) {
         $("#car-actions-box").show();
         $("#requestSwap-btn").hide();
         $("#carStatus").html("There is only one car in the list and no user(s) to swap with. Please come back to check to see if more cars are available");
-        
+
     }
     else if (response.carsList != "") {
         console.log("hello");
         $("#swap-btns").hide();
         initialActionCriteria(response);
         $("#car-actions-box").show();
-        
+
     }
 });
-    
+
     //event listener for onclick of request & GET for USER existing car ID in current scope
 $(".cars-list").on("click", ".requestSwap-btn", function (event) {
     console.log(event);
@@ -38,7 +43,7 @@ $(".cars-list").on("click", ".requestSwap-btn", function (event) {
         var swapCarData = event.target.id;
         var swapDataArray = swapCarData.split("-");
         var userForSwapData = {
-            currentCarId: response.id, 
+            currentCarId: response.id,
             userSwap: swapDataArray[0],
             vehicleSwapId: swapDataArray[1]
         }
@@ -185,4 +190,3 @@ function showSurvey() {
 
             });
         }
-    
