@@ -20,8 +20,8 @@
             <li>Color: {{color}}</li>
             <li>Price: {{price}}</li>
             <li>Listed By: {{username}}</li>
-            <li><img src="{{photo}}" alt="{{make}}-{{model}}"/></li>
-            <button type="button" class="btn btn-secondary requestSwap-btn" id="{{username}}-{{id}}" user="{{username}}" vehicleId="{{id}}">Request to Swap with Car Owner</button> 
+            <li><img class="carlistimage" src="{{photo}}" alt="{{make}}-{{model}}"/></li>
+            <button type="button" class="btn btn-success requestSwap-btn" id="{{username}}-{{id}}" user="{{username}}" vehicleId="{{id}}">Request to Swap with Car Owner</button>
         </ul>
         {{/unless}}
     {{/each}}
@@ -31,3 +31,4 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://surveyjs.azureedge.net/0.12.14/survey.jquery.min.js"></script>
 <script src="./assets/JS/carsList.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="./assets/css/background.css">
