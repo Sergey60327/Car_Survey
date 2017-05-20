@@ -54,7 +54,7 @@ app.use('/', router);
 
 //Database Sync
 var db = require("./models");
-db.sequelize.sync({ force: true }).then(function () {
+db.sequelize.sync({ force: false }).then(function () {
     // Starts the server to begin listening
     // =============================================================
     app.listen(PORT, function () {
