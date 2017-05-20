@@ -5,13 +5,9 @@ module.exports = function (sequelize, DataTypes) {
                 type: DataTypes.STRING,
                 allowNull: false
             },
-            userScore: {
-                type: DataTypes.INTEGER,
-                allowNull: false
-            },
-            swappedStatus: {
-                type: DataTypes.INTEGER,
-                allowNull: false
+            password: {
+                type: DataTypes.STRING,
+                allowNull:false
             }
         });
     return User;

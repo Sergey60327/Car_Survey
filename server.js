@@ -5,11 +5,15 @@
 // Dependencies
 // =============================================================
 var express = require("express");
+var session = require('express-session');
 var app = express();
 var exphbs = require('express-handlebars');
 var bodyParser = require("body-parser");
 var path = require("path");
 var methodOverride = require("method-override");
+var passport = require("passport");
+var flash = require("connect-flash");
+require('./config/passport')(passport); //pass passport for configuration
 
 
 // Sets up the Express App
@@ -33,13 +37,27 @@ app.use(methodOverride("_method"));
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
+//Set up Passport and Flash Middleware
+app.use(session({
+    secret: 'carpathaisalwaysrunning',
+    resave: true,
+    saveUninitialized: true
+})); // session secret
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
+app.use(flash()); // use connect-flash for flash messages stored in session
+
 // Routes
 // =============================================================
 var router = require("./controllers/cars_controllers.js");
 app.use('/', router);
 
-// Starts the server to begin listening
-// =============================================================
-app.listen(PORT, function() {
-  console.log("App listening on PORT " + PORT);
+//Database Sync
+var db = require("./models");
+db.sequelize.sync({ force: false }).then(function () {
+    // Starts the server to begin listening
+    // =============================================================
+    app.listen(PORT, function () {
+        console.log("App listening on PORT " + PORT);
+    });
 });
