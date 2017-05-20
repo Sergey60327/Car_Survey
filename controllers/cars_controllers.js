@@ -3,41 +3,42 @@ var passport = require("passport");
 var db = require("../models");
 var router = express.Router();
 
-    router.get("/", function (req, res) {
-        console.log("Activated");
-        res.render("homePage");
-    });
+router.get("/", function (req, res) {
+    console.log("Activated");
+    res.render("homePage");
+});
 
-    router.get("/survey", function (req, res) {
-        res.render("survey");
-        console.log("Survey Activated");
-    });
+router.get("/survey", function (req, res) {
+    res.render("survey");
+    console.log("Survey Activated");
+});
 
-    router.post("/survey", function (req, res) {
-        var randomNumber = Math.floor((Math.random() * 8) + 1);
-        res.send(randomNumber.toString());
+router.post("/survey", function (req, res) {
+    var randomNumber = Math.floor((Math.random() * 8) + 1);
+    res.send(randomNumber.toString());
+});
+
+//route to get specific userData
+router.get("/cardatabyuser/:user", function (req, res) {
+    db.Car.find({
+        where: {
+            username: req.params.user
+        }
+    }).done(function (response) {
+        console.log("finding one car");
+        res.json(response);
     });
-    //route to get specific userData
-    router.get("/cardatabyuser/:user", function (req, res) {
-        db.Car.find({
-            where: {
-                username: req.params.user
-            }
-        }).done(function (response) {
-            console.log("finding one car");
-            res.json(response);
-        });
-    });
+});
+
 //route to get all Car Data
-    router.get("/carslist", function (req, res) {
-        db.Car.findAll().then(function (response) {
-            var data = {
-                carsList: response,
-            }
-            res.render("carsList", data);
-        })
-        
-    });
+router.get("/carslist", function (req, res) {
+    db.Car.findAll().then(function (response) {
+        var data = {
+            carsList: response,
+        }
+        res.render("carsList", data);
+    }); 
+});
 
 //route to get just one car data
 router.get("/cardatabyid/:carid", function (req, res) {
@@ -52,11 +53,11 @@ router.get("/cardatabyid/:carid", function (req, res) {
     });
 });
 
-    router.post("/carslist", function (req, res) {
-        console.log(req.body);
-        console.log(req.body.carInfo);
-        console.log(req.body.carInfo.color);
-        db.Car.create({
+router.post("/carslist", function (req, res) {
+    console.log(req.body);
+    console.log(req.body.carInfo);
+    console.log(req.body.carInfo.color);
+    db.Car.create({
             make: req.body.carInfo.make,
             model: req.body.carInfo.model,
             year: req.body.carInfo.year,
