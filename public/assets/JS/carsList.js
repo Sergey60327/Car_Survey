@@ -1,6 +1,8 @@
 ﻿//Remove LI for current user & Do not automatically show car status and actions box
 
+//CSS for carsList.handlebars
 $("#" + localStorage.userName + "-listing").remove();
+$("#carstatus-heading").css("font-size", "400%");
 $(".carlistimage").css("height","50%");
 $(".carlistimage").css("width","50%");
 $(".requestSwap-btn").css("margin-left", "60px");
