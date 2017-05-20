@@ -3,8 +3,6 @@ html, body
     height: 100%;
 }
 
-body#page2{background-color:#f7c527;}
-
 .container{
   margin-top: 50px;
 
@@ -104,6 +102,18 @@ margin-left: 380px;
     margin-left: 160px;
   }
     }
+    @media screen and (max-width: 769px){
+    .links{
+   float:right;
+   }
+   #about-link{
+     display:none;
+   }
+   #sign-link {
+     display:none;
+   }
+      }
+
 .footer {
     position: absolute;
     bottom: 0;
