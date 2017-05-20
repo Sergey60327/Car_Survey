@@ -196,6 +196,7 @@ function showSurvey() {
                 }
                 else if (sessionStorage.userName === val.username && val.swapStatus === 2) {
                     $("#carStatus").html("Congratulations! Your car was swapped. Would you like to enter another one?");
+                    $(".requestSwap-btn").hide();
                     $("#swap-btns").hide();
                 }
 
