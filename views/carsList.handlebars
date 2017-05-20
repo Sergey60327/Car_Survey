@@ -1,5 +1,4 @@
 
-<div class="container">
     <div class="row">
         <div class="col-md-12" id="car-actions-box">
             <h3 id="carstatus-heading">Car Status:</h3>
@@ -13,19 +12,18 @@
     <div id="surveyContainer"></div>
     {{#each carsList}}
         {{#unless swappedOrPendingSwap}}
-        <ul class="cars-list" id="{{username}}-listing">
-            <li>Make: {{make}}</li>
-            <li>Model: {{model}}</li>
-            <li>Year: {{year}}</li>
-            <li>Color: {{color}}</li>
-            <li>Price: {{price}}</li>
-            <li>Listed By: {{username}}</li>
-            <li><img class="carlistimage" src="{{photo}}" alt="{{make}}-{{model}}"/></li>
-            <button type="button" class="btn btn-success requestSwap-btn" id="{{username}}-{{id}}" user="{{username}}" vehicleId="{{id}}">Request to Swap with Car Owner</button>
-        </ul>
+            <ul class="cars-list" id="{{username}}-listing">
+                <li>Make: {{make}}</li>
+                <li>Model: {{model}}</li>
+                <li>Year: {{year}}</li>
+                <li>Color: {{color}}</li>
+                <li>Price: {{price}}</li>
+                <li>Listed By: {{username}}</li>
+                <li><img class="carlistimage" src="{{photo}}" alt="{{make}}-{{model}}"/></li>
+                <button type="button" class="btn btn-success requestSwap-btn" id="{{username}}-{{id}}" user="{{username}}" vehicleId="{{id}}">Request to Swap with Car Owner</button>
+            </ul>
         {{/unless}}
     {{/each}}
-</div>
 <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
