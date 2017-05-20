@@ -1,39 +1,37 @@
 body{
-  background-color:#ffdc6f;
+    background-color:#ffdc6f;
 }
 .panel-footer {
-background-color:#ffdc6f;
+    background-color:#ffdc6f;
 }
 h3{
-  font-size: 190%;
-  margin-left: 40px;
-
+    font-size: 190%;
+    margin-left: 40px;
 }
 
 #car-result{
-margin-left: auto;
-margin-top: -5px;
-padding-right: 0px;
-background-color:#ffdc6f;
+    margin-left: auto;
+    margin-top: -5px;
+    padding-right: 0px;
+    background-color:#ffdc6f;
 }
 
 .survey-image{
-margin-left: 50px;
-padding: 0px;
-width:80%;
+    margin-left: 50px;
+    padding: 0px;
+    width:80%;
 }
 
 #purchase-btns{
-  margin-left: 320px;
-
+    margin-left: 320px;
 }
+
 #purchase-btn{
-margin-right: 45px;
-margin-bottom: 50px;
-height: 50px;
-width: 100px;
+    margin-right: 45px;
+    margin-bottom: 50px;
+    height: 50px;
+    width: 100px;
 }
 #swap-btn{
-  height: 50px;
-
+    height: 50px;
 }
