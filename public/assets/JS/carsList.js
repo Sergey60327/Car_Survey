@@ -10,7 +10,7 @@ $.get("/carsdb", function (response) {
         $("#swap-btns").hide();
         $("#car-actions-box").show();
         $("#requestSwap-btn").hide();
-        $("#carStatus").html("There are no cars as you are the first user to post a car. Please fill out survey and come back to check to see if more cars are available");
+        $("#carStatus").html("There are no cars as you are the first user to post a car. Please fill out the survey and come back to check to see if more cars are available.");
     }
     else if (response.carsList.length == 1) {
         console.log("You are the only car");
@@ -18,7 +18,7 @@ $.get("/carsdb", function (response) {
         $("#swap-btns").hide();
         $("#car-actions-box").show();
         $("#requestSwap-btn").hide();
-        $("#carStatus").html("There is only one car in the list and no user(s) to swap with. Please come back to check to see if more cars are available");
+        $("#carStatus").html("There is only one car in the list and no user(s) to swap with. Please come back and check to see if more cars are available.");
         
     }
     else if (response.carsList != "") {
@@ -73,6 +73,8 @@ function showSurvey() {
         model: survey,
         onComplete: sendDataToServer
     });
+    //Add attribute for nightshade
+    $("input[type='button']").attr("id", "complete-btn");
 
     function sendDataToServer(survey) {
         var resultAsString = JSON.stringify(survey.data);
@@ -116,28 +118,28 @@ function showSurvey() {
                 if (sessionStorage.userName === val.username && val.swapStatus !== 2) {
                     $("#surveyContainer").hide();
                     if (val.swapStatus === 0) {
-                        $("#carStatus").html("Your Car is up for swap");
+                        $("#carStatus").html("Pending for Swap");
                         $("#swap-btns").hide();
                     }
                     else if (val.swapStatus === 1) {
-                        $.get("/cardatabyuser/" + sessionStorage.userName).done(function (response) {
-                            if (response.initiatedSwap === false) {
+                        $.get("/cardatabyuser/" + sessionStorage.userName).done(function (responseUser) {
+                            if (responseUser.initiatedSwap === false) {
                                 //Call to get individual car data of swap car and display on page
-                                $.get("/cardatabyid/" + response.swapCarID).done(function (response) {
-                                    console.log(response);
-                                    $("#carStatus").html(response.userSwap + " wants to swap cars with you. They would like to swap for a " + response.year + " " + response.color + " " + response.make + " " + response.model + " that is currently worth $" + response.price + ". Do you want to swap for your car?");
+                                $.get("/cardatabyid/" + responseUser.swapCarID).done(function (responseId) {
+                                    console.log(responseId);
+                                    $("#carStatus").html(responseUser.userSwap + " wants to swap cars with you. They would like to swap for a " + responseId.year + " " + responseId.color + " " + responseId.make + " " + responseId.model + " that is currently worth $" + responseId.price + ". Do you wish to swap?");
                                     //Show Image of the Car and append to car status
                                     var newImg = $("<img>");
-                                    newImg.attr("src", response.photo);
-                                    newImg.attr("alt", response.make + "-" + response.model);
+                                    newImg.attr("src", responseId.photo);
+                                    newImg.attr("alt", responseId.make + "-" + responseId.model);
                                     newImg.css("height", "15%");
                                     newImg.css("width", "15%");
                                     $("#carStatus").append(newImg);
                                     $("#swap-btns").show();
                                 });
                             }
-                            else if (response.initiatedSwap === true) {
-                                $("#carStatus").html("You have initiated a swap with " + response.userSwap + ".This status will change upon them choosing to swap or not");
+                            else if (responseUser.initiatedSwap === true) {
+                                $("#carStatus").html("You have initiated a swap with " + responseUser.userSwap + ".This status is pending acceptance.");
                             }
                             //Swap btns criteria
                             //yes btn event listener. Set both cars status from classifieds to 2 and change car status to swapped
@@ -179,7 +181,7 @@ function showSurvey() {
 
                 }
                 else if (sessionStorage.userName === val.username && val.swapStatus === 2) {
-                    $("#carStatus").html("You have swapped cars");
+                    $("#carStatus").html("Congratulations! Your car was swapped. Would you like to enter another one?");
                     $("#swap-btns").hide();
                 }
 
